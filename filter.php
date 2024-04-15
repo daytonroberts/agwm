@@ -32,9 +32,10 @@ if (!$conn) {
 <header id="filter" class="filter container-fluid m-0 p-0"  style="background-color: white;">
   <form action="index.php" method="POST" style="background-color: white;">
     <div class="form-inline justify-content-center m-0" style="background-color: white;">
-    <select name="instruments" class="btn-group">
+    <select  name="instruments" class="btn-group">
       <option value="" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Select Instrument</option>
-      <ul class="dropdown-menu">
+      <ul id="search" class="dropdown-menu">
+      <option value="10"><a href="#" class="dropdown-item">All</a></option>
       <?php 
         $query = "SELECT * from instruments";
         $result = mysqli_query($conn, $query);
@@ -46,10 +47,11 @@ if (!$conn) {
           }
         }
       ?>
+
       </ul>
     </select>
-    <button type="submit" class="btn btn-primary m-0">Filter</button>
-    <button type="submit" class="btn btn-secondary m-0">Reset</button>
+    <button type="submit" class="btn btn-outline-primary rounded-2 m-0">Filter</button>
+    <button type="submit" class="btn btn-outline-secondary rounded-2 m-0">Reset</button>
     </div>
   </form>
 </header> 

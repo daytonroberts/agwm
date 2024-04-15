@@ -12,7 +12,7 @@ define('DBPASS', '');
 define('DBCONNSTRING',"mysql:host=" . DBHOST . ";dbname=" . DBNAME . ";charset=utf8mb4;");
  */
 $server = "localhost";
-$db = "publications";
+$db = "test";
 $username = 'root';
 $password = "";
 $conn = mysqli_connect($server, $username, $password, $db);
@@ -48,8 +48,8 @@ if(isset($_GET['delid'])){
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="images/CHS_Logo.png" rel="icon">
-  <link href="images/CHS_Logo.png" rel="apple-touch-icon">
+  <link href="assets/images/CHS_Logo.png" rel="icon">
+  <link href="assets/images/CHS_Logo.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -70,7 +70,7 @@ if(isset($_GET['delid'])){
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/external_css.css" rel="stylesheet">
 
-  <link href="assets\vendor\bootstrap-icons\bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -82,7 +82,7 @@ if(isset($_GET['delid'])){
   <header id="header" class="fixed-top bg-danger">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo"><img src="images/CHS_Logo.png" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo"><img src="assets/images/CHS_Logo.png" alt="" class="img-fluid"></a>
       <!-- Uncomment below if you prefer to use text as a logo -->
       <!-- <h1 class="logo"><a href="index.html">Butterfly</a></h1> -->
 
@@ -132,7 +132,7 @@ if(isset($_GET['delid'])){
               </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img class="d-block w-100 h-100" src="images/shana-conducting.jpg" alt="First slide">
+                  <img class="d-block w-100 h-100" src="assets/images/shana-conducting.jpg" alt="First slide">
                   <!-- <div class="carousel-caption d-none d-md-block">
                     <h4>
                         <i class="material-icons">location_on</i>
@@ -141,7 +141,7 @@ if(isset($_GET['delid'])){
                   </div> -->
                 </div>
                 <div class="carousel-item">
-                  <img class="d-block w-100" src="images/abbeyrd.jpg"  alt="Second slide">
+                  <img class="d-block w-100" src="assets/images/abbeyrd.jpg"  alt="Second slide">
                   <!-- <div class="carousel-caption d-none d-md-block">
                     <h4>
                         <i class="material-icons">location_on</i>
@@ -150,7 +150,7 @@ if(isset($_GET['delid'])){
                   </div> -->
                 </div>
                 <div class="carousel-item">
-                  <img class="d-block w-100" src="images/quintet-with-mayor.jpg" alt="Third slide">
+                  <img class="d-block w-100" src="assets/images/quintet-with-mayor.jpg" alt="Third slide">
                   <!-- <div class="carousel-caption d-none d-md-block">
                     <h4>
                         <i class="material-icons">location_on</i>
@@ -182,9 +182,16 @@ if(isset($_GET['delid'])){
 
         <div class="row">
           <div class="bg-danger col-lg-12 icon-boxes d-flex align-items-stretch justify-content-center py-3 px-0">
-            <h3 class="m-0">Pick your instrument to see teachers</h3>
+            <h3 class="m-0">Private Teachers</h3>
           </div>
         </div>
+        <div class="row">
+          <div class="col-lg-12 icon-boxes d-flex align-items-stretch justify-content-center pt-2 px-0 m-0">
+            <p class="p-0 m-0">Select instrument to view teachers</p>
+          </div>
+        </div>
+        
+      </div>
             <?php
               include 'filter.php';
             ?>
@@ -203,6 +210,9 @@ if(isset($_GET['delid'])){
                 if ($filter == 4){
                   $query = "SELECT * FROM private_teachers_docx__1_ WHERE Bass = 1";
                 }
+                if ($filter == 10){
+                  $query = "SELECT * FROM private_teachers_docx__1_";
+                }
                 $result = mysqli_query($conn, $query);?>
                 <?php
                 $counter = 0;
@@ -211,20 +221,21 @@ if(isset($_GET['delid'])){
                     $counter ++;
                 ?>
                   <div class="row">
-                    <div class="accordion accordion-flush col-lg-12 icon-boxes d-flex flex-column align-items-stretch" id="accordionFlushExample">
-                      <div class="accordion-item">
-                        <h2 class="accordion-header">
-                          <button class="row accordion-button collapsed justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo "flush-collapse".$counter;?>" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <div class="accordion accordion-flush icon-boxes d-flex flex-column align-items-stretch container-lg" id="accordionFlushExample">
+                      <div class="accordion-item container-lg">
+                        <h2 class="accordion-header container-lg d-flex justify-content-center ">
+                          <button class="row accordion-button collapsed justify-content-between container-lg justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo "flush-collapse".$counter;?>" aria-expanded="false" aria-controls="<?php echo "flush-collapse".$counter;?>">
                             <div class="icon col"><i class="bx bx-user"></i><?php echo $row["Name"];?></div>
                             <div class="icon col"><i class="bx bx-location-plus"></i><?php echo $row["Location"];?></div>
                             <div class="icon col"><i class="bx bx-music"></i><?php echo $row["Instrument"];?></div>
                           </button>
                         </h2>
                         <div id="<?php echo 'flush-collapse'.$counter;?>" class="accordion-collapse collapse m-0 p-0" data-bs-parent="#accordionFlushExample">
-                          <div class="accordion-body">
-                            <div class="row">
-                              <div class="col justify-content-center icon"><i class="bx bx-music"></i></div><?php echo $row["Instrument"];?></div>
-                              <div class="col justify-content-center"><i class="bx bx-music"></i></div><?php echo $row["Instrument"];?></div>
+                          <div class="accordion-body d-grid">
+                            <div class="row container-lg d-flex justify-content-evenly">
+                              <div class="col icon"><i class="bx bx-phone"></i><?php echo $row["Phone"];?></div>
+                              <div class="col icon"><i class="bx bx-mail-send"></i><?php echo $row["Email/Website"];?></div>
+                              <div class="col icon"><i class="bx bx-notepad"></i><?php echo $row["Other Notes"];?></div>
                             </div>
                           </div>
                         </div>
@@ -236,8 +247,7 @@ if(isset($_GET['delid'])){
               }
             }
             ?>
-        </div>
-      </div>
+      
     </section><!-- End About Section -->
     
   </main><!-- End #main -->
@@ -246,8 +256,10 @@ if(isset($_GET['delid'])){
   <footer id="footer">
 
     <div class="container py-4">
-      <div class="copyright">
-        &copy;  <strong><span>CHSO 2024</span></strong>. 
+      <div class="copyright d-flex justify-content-end">
+        <div><strong><span>&copy;CHSO 2024</span></strong></div>
+        
+        <div><strong><span><a href="admin.php" class="text-danger mx-3">Admin</a></span></strong></div>
       </div>
       <div class="credits">
        

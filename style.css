@@ -16,6 +16,10 @@ a:hover {
     color: white;
 }
 
+#search:hover {
+    box-shadow: 4px;
+}
+
 .fader {
     opacity: 0;
     animation: fade ease-in 1.5s forwards;

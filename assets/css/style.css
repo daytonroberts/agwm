@@ -10,7 +10,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Dosis", sans-serif;
   color: #444444;
 }
 
@@ -22,15 +22,6 @@ a {
 a:hover {
   color: #76c7ed;
   text-decoration: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Dosis", sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -144,7 +135,7 @@ h6 {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #49b5e7;
+  color: white;
 }
 
 .navbar .dropdown ul {
@@ -180,7 +171,7 @@ h6 {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  color: #49b5e7;
+  color: white;
 }
 
 .navbar .dropdown:hover>ul {
@@ -279,7 +270,7 @@ h6 {
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: #49b5e7;
+  color: white;
 }
 
 .navbar-mobile .getstarted,
@@ -314,7 +305,7 @@ h6 {
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
 .navbar-mobile .dropdown ul li:hover>a {
-  color: #49b5e7;
+  color: white;
 }
 
 .navbar-mobile .dropdown>.dropdown-active {
