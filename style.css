@@ -1,0 +1,36 @@
+.carousel-item {
+    aspect-ratio: 16/9;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.carousel-item img {
+    position: absolute;
+    object-fit: fill;
+}
+
+a:hover {
+    color: white;
+}
+
+.fader {
+    opacity: 0;
+    animation: fade ease-in 1.5s forwards;
+    pointer-events: none;
+}
+
+.nav-link {
+    color: black;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
