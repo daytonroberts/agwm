@@ -16,6 +16,14 @@ a:hover {
     color: white;
 }
 
+.dropdown-a:hover {
+    color: black;
+}
+
+.active-black {
+    color: black !important; 
+}
+
 #search:hover {
     box-shadow: 4px;
 }

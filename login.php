@@ -18,7 +18,7 @@
 
         $result = $conn->query($query);
 
-        if ($result->num_rows >= 1) {
+        if ($result !== false && $result->num_rows > 0) {
             $newquery = "SELECT * FROM private_teachers_docx__1_";
             $newresult = mysqli_query($conn, $newquery);
             $counter = 0;

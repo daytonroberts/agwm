@@ -87,13 +87,15 @@ if(isset($_GET['delid'])){
       <!-- <h1 class="logo"><a href="index.html">Butterfly</a></h1> -->
 
       <nav id="navbar" class="navbar" style="box-shadow: none;">
-        <ul>
-          <li><a class="nav-link scrollto active text-light" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">Private Teachers</a></li>
-          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+        <ul class="bg-danger">
+          <!-- <li><a class="nav-link scrollto active text-light" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#calendar">Calendar</a></li>
+          <li><a class="nav-link scrollto" href="#about">Private Teachers</a></li> -->
+          <li class="dropdown nav-link scrollto active text-light"><a href="#hero"><span>Home</span> <i class="bi bi-chevron-down"></i></a>
+            <ul class="bg-danger">
+              <li><a href="#calendar" class="nav-link scrollto dropdown-a active-black">Calendar</a></li>
+              <li><a href="#about" class="nav-link scrollto dropdown-a active-black">Private Teachers</a></li>
+              <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="#">Deep Drop Down 1</a></li>
                   <li><a href="#">Deep Drop Down 2</a></li>
@@ -102,9 +104,9 @@ if(isset($_GET['delid'])){
               </li>
               <li><a href="#">Drop Down 2</a></li>
               <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
+              <li><a href="#">Drop Down 4</a></li> -->
             </ul>
-          </li> -->
+          </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -174,12 +176,28 @@ if(isset($_GET['delid'])){
     </div>
 
   </section><!-- End Hero -->
+  
+  <section id="calendar" class="about p-0">
+    <div class="container justify-content-center p-0 ">
+      <div class="row">
+        <div class="bg-danger col-lg-12 icon-boxes d-flex align-items-stretch justify-content-center py-3 px-0">
+          <h3 class="m-0">Calendar</h3>
+        </div>
+      </div>
+      <div class="container my-4">
+        <div class="row">
+          <div class="col-lg-12 border-danger mb-4">
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FPhoenix&bgcolor=%23f84434&showTabs=0&showTitle=0&src=YmFmZWYyMDNjNzdhYjQ1M2IyZmE1NmIxZjI5MWYwOTU5NDMxNDk4OGE5OTNiOGY2ZGM4YThjM2EzZWZjYTVjZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23F4511E" style="height: 60vh; width: 100%;" frameborder="0"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
 
   <main id="main">    
     <!-- ======= About Section ======= -->
     <section id="about" class="about p-0">
       <div class="container justify-content-center p-0 ">
-
         <div class="row">
           <div class="bg-danger col-lg-12 icon-boxes d-flex align-items-stretch justify-content-center py-3 px-0">
             <h3 class="m-0">Private Teachers</h3>
@@ -189,67 +207,64 @@ if(isset($_GET['delid'])){
           <div class="col-lg-12 icon-boxes d-flex align-items-stretch justify-content-center pt-2 px-0 m-0">
             <p class="p-0 m-0">Select instrument to view teachers</p>
           </div>
-        </div>
-        
+        </div> 
       </div>
-            <?php
-              include 'filter.php';
-            ?>
-            <?php
-              if($_SERVER["REQUEST_METHOD"]=="POST" && ($_POST["instruments"] != "")) {
-                $filter = $_POST['instruments'];
-                if ($filter == 1 or $filter == NULL){
-                  $query = "SELECT * FROM private_teachers_docx__1_ WHERE Violin = 1";
-                }
-                if ($filter == 2){
-                  $query = "SELECT * FROM private_teachers_docx__1_ WHERE Viola = 1";
-                }
-                if ($filter == 3){
-                  $query = "SELECT * FROM private_teachers_docx__1_ WHERE Cello = 1";
-                }
-                if ($filter == 4){
-                  $query = "SELECT * FROM private_teachers_docx__1_ WHERE Bass = 1";
-                }
-                if ($filter == 10){
-                  $query = "SELECT * FROM private_teachers_docx__1_";
-                }
-                $result = mysqli_query($conn, $query);?>
-                <?php
-                $counter = 0;
-                if ($result) {
-                  foreach($result as $row) {
-                    $counter ++;
-                ?>
-                  <div class="row">
-                    <div class="accordion accordion-flush icon-boxes d-flex flex-column align-items-stretch container-lg" id="accordionFlushExample">
-                      <div class="accordion-item container-lg">
-                        <h2 class="accordion-header container-lg d-flex justify-content-center ">
-                          <button class="row accordion-button collapsed justify-content-between container-lg justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo "flush-collapse".$counter;?>" aria-expanded="false" aria-controls="<?php echo "flush-collapse".$counter;?>">
-                            <div class="icon col"><i class="bx bx-user"></i><?php echo $row["Name"];?></div>
-                            <div class="icon col"><i class="bx bx-location-plus"></i><?php echo $row["Location"];?></div>
-                            <div class="icon col"><i class="bx bx-music"></i><?php echo $row["Instrument"];?></div>
-                          </button>
-                        </h2>
-                        <div id="<?php echo 'flush-collapse'.$counter;?>" class="accordion-collapse collapse m-0 p-0" data-bs-parent="#accordionFlushExample">
-                          <div class="accordion-body d-grid">
-                            <div class="row container-lg d-flex justify-content-evenly">
-                              <div class="col icon"><i class="bx bx-phone"></i><?php echo $row["Phone"];?></div>
-                              <div class="col icon"><i class="bx bx-mail-send"></i><?php echo $row["Email/Website"];?></div>
-                              <div class="col icon"><i class="bx bx-notepad"></i><?php echo $row["Other Notes"];?></div>
-                            </div>
-                          </div>
-                        </div>
+      <?php
+        include 'filter.php';
+      ?>
+      <?php
+        if($_SERVER["REQUEST_METHOD"]=="POST" && ($_POST["instruments"] != "")) {
+          $filter = $_POST['instruments'];
+          if ($filter == 1){
+            $query = "SELECT * FROM private_teachers_docx__1_ WHERE Violin = 1";
+          }
+          if ($filter == 2){
+            $query = "SELECT * FROM private_teachers_docx__1_ WHERE Viola = 1";
+          }
+          if ($filter == 3){
+            $query = "SELECT * FROM private_teachers_docx__1_ WHERE Cello = 1";
+          }
+          if ($filter == 4){
+            $query = "SELECT * FROM private_teachers_docx__1_ WHERE Bass = 1";
+          }
+          if ($filter == 10){
+            $query = "SELECT * FROM private_teachers_docx__1_";
+          }
+          $result = mysqli_query($conn, $query);?>
+          <?php
+          $counter = 0;
+          if ($result) {
+            foreach($result as $row) {
+              $counter ++;
+          ?>
+            <div class="row">
+              <div class="accordion accordion-flush icon-boxes d-flex flex-column align-items-stretch container-lg" id="accordionFlushExample">
+                <div class="accordion-item container-lg">
+                  <h2 class="accordion-header container-lg d-flex justify-content-center ">
+                    <button class="row accordion-button collapsed justify-content-between container-lg justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo "flush-collapse".$counter;?>" aria-expanded="false" aria-controls="<?php echo "flush-collapse".$counter;?>">
+                      <div class="icon col"><i class="bx bx-user"></i><?php echo $row["Name"];?></div>
+                      <div class="icon col"><i class="bx bx-location-plus"></i><?php echo $row["Location"];?></div>
+                      <div class="icon col"><i class="bx bx-music"></i><?php echo $row["Instrument"];?></div>
+                    </button>
+                  </h2>
+                  <div id="<?php echo 'flush-collapse'.$counter;?>" class="accordion-collapse collapse m-0 p-0" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body d-grid">
+                      <div class="row container-lg d-flex justify-content-evenly">
+                        <div class="col icon"><i class="bx bx-phone"></i><?php echo $row["Phone"];?></div>
+                        <div class="col icon"><i class="bx bx-mail-send"></i><?php echo $row["Email/Website"];?></div>
+                        <div class="col icon"><i class="bx bx-notepad"></i><?php echo $row["Other Notes"];?></div>
                       </div>
                     </div>
                   </div>
-            <?php
-                }
-              }
-            }
-            ?>
-      
+                </div>
+              </div>
+            </div>
+      <?php
+          }
+        }
+      }
+      ?>
     </section><!-- End About Section -->
-    
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -259,7 +274,7 @@ if(isset($_GET['delid'])){
       <div class="copyright d-flex justify-content-end">
         <div><strong><span>&copy;CHSO 2024</span></strong></div>
         
-        <div><strong><span><a href="" class="text-danger mx-3">Admin</a></span></strong></div>
+        <div><strong><span><a href="admin.php" class="text-danger mx-3">Admin</a></span></strong></div>
       </div>
       <div class="credits">
        
