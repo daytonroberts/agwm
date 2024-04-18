@@ -131,12 +131,12 @@ a:hover {
   margin-left: 5px;
 }
 
-/* .navbar a:hover,
+.navbar a:hover,
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
   color: white;
-} */
+}
 
 .navbar .dropdown ul {
   display: block;
@@ -168,11 +168,11 @@ a:hover {
   font-size: 12px;
 }
 
-/* .navbar .dropdown ul a:hover,
+.navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
   color: white;
-} */
+}
 
 .navbar .dropdown:hover>ul {
   opacity: 1;
@@ -266,12 +266,12 @@ a:hover {
   font-size: 15px;
   color: #0f394c;
 }
-/* 
+ 
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
   color: white;
-} */
+}
 
 .navbar-mobile .getstarted,
 .navbar-mobile .getstarted:focus {
@@ -302,11 +302,11 @@ a:hover {
   font-size: 12px;
 }
 
-/* .navbar-mobile .dropdown ul a:hover,
+.navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
 .navbar-mobile .dropdown ul li:hover>a {
   color: white;
-} */
+}
 
 .navbar-mobile .dropdown>.dropdown-active {
   display: block;

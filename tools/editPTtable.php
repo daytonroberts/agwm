@@ -1,4 +1,6 @@
 <?php
+
+ob_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -16,6 +18,23 @@ $db = "test";
 $username = 'root';
 $password = "";
 $conn = mysqli_connect($server, $username, $password, $db);
+$admin = false;
+
+if($_SERVER["REQUEST_METHOD"]=="POST") {
+  $input_username = $_POST['username'];
+  $input_password = $_POST["password"];
+
+  $query = "SELECT * FROM users WHERE Passwords='$input_password' AND Usernames = '$input_username'";
+
+  $result = $conn->query($query);
+
+  if ($result->num_rows > 0) {
+    $admin = true;
+    setcookie('loggedin', true, time() + 86400);
+  } else {
+    $admin = false;
+  }
+}
 
 if (!$conn) {
     die("Connection Failed".mysqli_connect_errors());
@@ -73,53 +92,20 @@ if(isset($_GET['delid'])){
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="p-2">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top bg-danger">
-    <div class="container d-flex align-items-center justify-content-between">
-
-      <a href="index.php" class="logo"><img src="assets/images/CHS_Logo.png" alt="" class="img-fluid"></a>
-      <!-- Uncomment below if you prefer to use text as a logo -->
-      <!-- <h1 class="logo"><a href="index.html">Butterfly</a></h1> -->
-
-      <nav id="navbar" class="navbar" style="box-shadow: none;">
-        <ul>
-          <li><a class="nav-link scrollto active text-light" href="index.php">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">Private Teachers</a></li>
-          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> -->
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
-
   <section class="mt-5">
     <div class="container-lg d-flex flex-column justify-content-center">
         <h2>CHSO Admin Page</h2>
-        <p>To return to the home page click <a href="index.php">here</a></p>
+        <a href="../index.php">Return to Main</a>
+        <a href="../adminTools.html">Return to Tools</a>
     </div>
 
     <header id="filter" class="filter container-fluid m-0 p-0"  style="background-color: white;">
-        <form action="admin.php" method="POST" style="background-color: white;">
+        <form action="editPTtable.php" method="POST" style="background-color: white;">
             <div class="form-inline justify-content-center m-0" style="background-color: white;">
                 <input type="text" name="username" class="form-control p-1" placeholder="Username">
                 <input type="password" name="password" class="form-control p-1" placeholder="Password">
@@ -128,8 +114,67 @@ if(isset($_GET['delid'])){
         </form>
     </header> 
   </section>
-  <?php 
-    include 'login.php';
+  <?php
+    if ($admin && $_COOKIE["loggedin"] == true) {
+      $newquery = "SELECT * FROM private_teachers_docx__1_";
+      $newresult = mysqli_query($conn, $newquery);
+      $counter = 0;
+      if ($newresult) {?>
+      <div class="container-lg p-5">
+        <div class="row">
+          <div class="col"><p>Name</p></div>
+          <div class="col"><p>Location</p></div>
+          <div class="col"><p>Instrument</p></div>
+          <div class="col"><p>Phone</p></div>
+          <div class="col"><p>Email/Website</p></div>
+          <div class="col"><p>Other Notes</p></div>
+          <div class="col"><p>Actions</p></div>
+        </div>
+      </div>
+        <?php
+        foreach($newresult as $row) {
+          $counter ++;
+          ?>
+          <div class="container-lg p-5">
+            <div class="row">
+              <div class="col"><?php echo $row["Name"];?></div>
+              <div class="col"><?php echo $row["Location"];?></div>
+              <div class="col"><?php echo $row["Instrument"];?></div>
+              <div class="col"><?php echo $row["Phone"];?></div>
+              <div class="col"><?php echo $row["Email/Website"];?></div>
+              <div class="col"><?php echo $row["Other Notes"];?></div>
+              <div class="col"><a href="">button</a></div>
+            </div>
+          </div>
+        <?php
+        }
+      }
+    } else {
+      setcookie('loggedin', false, time() + 86400);
+      ?>
+        <div class="container-lg">
+            <p class="text-danger">incorrect credentials</p>
+        </div>
+    <?php
+    } 
   ?>
+
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

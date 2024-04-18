@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 /* 
 define('DBHOST', 'localhost');
@@ -274,7 +274,7 @@ if(isset($_GET['delid'])){
       <div class="copyright d-flex justify-content-end">
         <div><strong><span>&copy;CHSO 2024</span></strong></div>
         
-        <div><strong><span><a href="admin.php" class="text-danger mx-3">Admin</a></span></strong></div>
+        <div><strong><span><a href="adminTools.html" class="text-danger mx-3">Admin</a></span></strong></div>
       </div>
       <div class="credits">
        
