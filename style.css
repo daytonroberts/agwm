@@ -17,12 +17,10 @@ a:hover {
 }
 
 .dropdown-a:hover {
-    color: black;
+    color:  white !important;
 }
 
-.active-black {
-    color: black !important; 
-}
+
 
 #search:hover {
     box-shadow: 4px;

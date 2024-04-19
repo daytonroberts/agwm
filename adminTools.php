@@ -1,3 +1,58 @@
+<?php
+
+ob_start();
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+setcookie('loggedin', false);
+/* 
+define('DBHOST', 'localhost');
+define('DBNAME', 'name here');
+define('DBUSER', 'root');
+define('DBPASS', '');
+//define('DBCONNSTRING','sqlite:./art.db');
+define('DBCONNSTRING',"mysql:host=" . DBHOST . ";dbname=" . DBNAME . ";charset=utf8mb4;");
+ */
+$server = "localhost";
+$db = "test";
+$username = 'root';
+$password = "";
+$conn = mysqli_connect($server, $username, $password, $db);
+$admin = false;
+
+if(isset($_COOKIE["loggedin"]) && $_COOKIE['loggedin'] == true) {
+  $admin = true;
+  setcookie('loggedin', true, time() + 3600);
+}
+
+if($_SERVER["REQUEST_METHOD"]=="POST") {
+  $input_username = $_POST['username'];
+  $input_password = $_POST["password"];
+
+  $query = "SELECT * FROM users WHERE Passwords='$input_password' AND Usernames = '$input_username'";
+
+  $result = $conn->query($query);
+
+  if ($result->num_rows > 0) {
+    $admin = true;
+    setcookie('loggedin', true, time() + 3600);
+  } else {
+    $admin = false;
+  }
+}
+
+if (!$conn) {
+    die("Connection Failed".mysqli_connect_errors());
+}
+
+// function genQuery($qry) {
+//     $result = mysqli_query($conn, $qry);
+//     if (mysqli_num_rows($result) > 0) {
+
+//     }
+// }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,13 +128,23 @@
 
     </div>
   </header><!-- End Header -->
-
   <section class="mt-5">
     <div class="container d-flex flex-column justify-content-center">
         <h2>CHSO Admin Page</h2>
         <p>To return to the home page click <a href="index.php">here</a></p>
     </div>
   </section>
+  <header id="filter" class="filter container-fluid m-0 p-0"  style="background-color: white;">
+        <form action="adminTools.php" method="POST" style="background-color: white;">
+            <div class="form-inline justify-content-center m-0" style="background-color: white;">
+                <input type="text" name="username" class="form-control p-1" placeholder="Username">
+                <input type="password" name="password" class="form-control p-1" placeholder="Password">
+                <input type="submit" value="Login" class="btn btn-danger">
+            </div>
+        </form>
+    </header> 
+<?php
+if ($admin) {?>
   <div class="container d-flex justify-content-start">
     <ul>
       <li><h2>Tools</h2></li>
@@ -87,6 +152,15 @@
       <li><a href="tools/editPTtable.php">Edit Private Teachers</a></li>
     </ul>
   </div>
-  
+<?php 
+} else {?>
+  <section class="mt-5">
+    <div class="container d-flex flex-column justify-content-center">
+        <h2>Incorrect Credentials</h2>
+    </div>
+  </section>
+  <?php
+}
+?>
 </body>
 </html>

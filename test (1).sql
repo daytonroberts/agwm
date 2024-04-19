@@ -66,7 +66,7 @@ CREATE TABLE `private_teachers_docx__1_` (
 -- Dumping data for table `private_teachers_docx__1_`
 --
 
-INSERT INTO `private_teachers_docx__1_` (`teacher_id`, `Name`, `Phone`, `Email/Website`, `Location`, `Instrument`, `Other Notes`, `Violin`, `Viola`, `Cello`, `Bass`) VALUES
+INSERT INTO `private_teachers_docx__1_` (`teacher_id`, `Name`, `Phone`, `EmailWebsite`, `Location`, `Instrument`, `OtherNotes`, `Violin`, `Viola`, `Cello`, `Bass`) VALUES
 (1, 'Dr. Carolyn Broe, DMA', '602-738-6630', 'DrCarolynBroe@gmail.com', 'Scottsdale', 'Violin, Viola, Cello', 'Scottsdale Philharmonic', 1, 1, 1, 0),
 (2, 'Maggie Martinic', '(602)820-5372', 'phxvln@gmail.com', '', '', '', 0, 0, 0, 0),
 (3, 'Dr. Mary Harrah', '480-967-3447', 'maryharrahmusic@gmail.com', '', 'Viola', 'MCC/Phx. Symph/AZ Opera', 0, 1, 0, 0),

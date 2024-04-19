@@ -93,8 +93,8 @@ if(isset($_GET['delid'])){
           <li><a class="nav-link scrollto" href="#about">Private Teachers</a></li> -->
           <li class="dropdown nav-link scrollto active text-light"><a href="#hero"><span>Home</span> <i class="bi bi-chevron-down"></i></a>
             <ul class="bg-danger">
-              <li><a href="#calendar" class="nav-link scrollto dropdown-a active-black">Calendar</a></li>
-              <li><a href="#about" class="nav-link scrollto dropdown-a active-black">Private Teachers</a></li>
+              <li><a href="#calendar" class="nav-link scrollto dropdown-a ">Calendar</a></li>
+              <li><a href="#about" class="nav-link scrollto dropdown-a">Private Teachers</a></li>
               <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="#">Deep Drop Down 1</a></li>
@@ -274,7 +274,7 @@ if(isset($_GET['delid'])){
       <div class="copyright d-flex justify-content-end">
         <div><strong><span>&copy;CHSO 2024</span></strong></div>
         
-        <div><strong><span><a href="adminTools.html" class="text-danger mx-3">Admin</a></span></strong></div>
+        <div><strong><span><a href="adminTools.php" class="text-danger mx-3">Admin</a></span></strong></div>
       </div>
       <div class="credits">
        

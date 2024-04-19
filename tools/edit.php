@@ -21,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
     $n_Email=$_POST["EmailWebsite"];
     $n_loc=$_POST["Location"];
     $n_inst=$_POST["Instrument"];
-    $n_notes=$_POST["Other Notes"];
+    $n_notes=$_POST["OtherNotes"];
     $n_vn=$_POST["Violin"];
     $n_v=$_POST["Viola"];
     $n_c=$_POST["Cello"];
@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
         p.Violin='$n_vn',
         p.Viola='$n_v',
         p.Cello='$n_c',
-        p.Bass='$n_b' WHERE id='$n_id'";
+        p.Bass='$n_b' WHERE teacher_id='$n_id'";
     $exe = mysqli_query($conn, $query);
 }
 else{
@@ -89,7 +89,7 @@ if(isset($exe)){
 } */
 if(isset($_REQUEST['eid'])){
     $id = $_GET['eid'];
-    $query = "SELECT * FROM articles WHERE id = '$id'";
+    $query = "SELECT * FROM private_teachers_docx__1_ WHERE teacher_id = '$id'";
     $result = mysqli_query($conn, $query);
     if ($result) {
         foreach($result as $row) {    
@@ -97,13 +97,39 @@ if(isset($_REQUEST['eid'])){
 ?>
     <form action="edit.php" method="POST" >
         <div class="form-inline">
-        <p><span> Title:</span>
-            <input type="text" name="Title" value="<?php echo $row["Title"];?>">
-            <span>Authors:</span>              
-            <input type="text"  value="<?php echo $row["Authors"];?>" name='Authors'>
-            <span>Publisher:</span>              
-            <input type="text"  value="<?php echo $row["Publisher"];?>" name='Publisher'>
-            <input type="hidden"  value="<?php echo $id;?>" name='id'>
+        <p><span>Name:</span>
+            <input type="text" name="Name" value="<?php echo $row["Name"];?>"><br>
+
+            <span>Phone:</span>              
+            <input type="text"  value="<?php echo $row["Phone"];?>" name='Phone'><br>
+
+            <span>EmailWebsite:</span>              
+            <input type="text"  value="<?php echo $row["EmailWebsite"];?>" name='EmailWebsite'><br>
+
+            <span>Instrument:</span>
+            <input type="text" name="Instrument" value="<?php echo $row["Instrument"];?>"><br>
+
+            <span>Location:</span>              
+            <input type="text"  value="<?php echo $row["Location"];?>" name='Location'><br>
+
+            <span>OtherNotes:</span>              
+            <input type="text"  value="<?php echo $row["OtherNotes"];?>" name='OtherNotes'><br>
+
+            <span>Put 1 if the instrument is taught, 0 if not</span><br>
+
+            <span>Violin (Only Enter 1 or 0):</span>
+            <input type="text" name="Violin" value="<?php echo $row["Violin"];?>"><br>
+
+            <span>Viola (Only Enter 1 or 0):</span>              
+            <input type="text"  value="<?php echo $row["Viola"];?>" name='Viola'><br>
+
+            <span>Cello (Only Enter 1 or 0):</span>              
+            <input type="text"  value="<?php echo $row["Cello"];?>" name='Cello'><br>
+
+            <span>Bass (Only Enter 1 or 0):</span>              
+            <input type="text"  value="<?php echo $row["Bass"];?>" name='Bass'><br>
+
+            <input type="hidden"  value="<?php echo $id;?>" name='teacher_id'>
             <button type="submit" class="btn-primary">Update</button>
             </div>
             </form>

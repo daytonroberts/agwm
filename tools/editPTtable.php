@@ -4,7 +4,7 @@ ob_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
+setcookie('loggedin', false);
 /* 
 define('DBHOST', 'localhost');
 define('DBNAME', 'name here');
@@ -18,23 +18,28 @@ $db = "test";
 $username = 'root';
 $password = "";
 $conn = mysqli_connect($server, $username, $password, $db);
-$admin = false;
+// $admin = false;
 
-if($_SERVER["REQUEST_METHOD"]=="POST") {
-  $input_username = $_POST['username'];
-  $input_password = $_POST["password"];
+// if(isset($_COOKIE["loggedin"]) && $_COOKIE['loggedin'] == true) {
+//   $admin = true;
+//   setcookie('loggedin', true, time() + 3600);
+// }
 
-  $query = "SELECT * FROM users WHERE Passwords='$input_password' AND Usernames = '$input_username'";
+// if($_SERVER["REQUEST_METHOD"]=="POST") {
+//   $input_username = $_POST['username'];
+//   $input_password = $_POST["password"];
 
-  $result = $conn->query($query);
+//   $query = "SELECT * FROM users WHERE Passwords='$input_password' AND Usernames = '$input_username'";
 
-  if ($result->num_rows > 0) {
-    $admin = true;
-    setcookie('loggedin', true, time() + 86400);
-  } else {
-    $admin = false;
-  }
-}
+//   $result = $conn->query($query);
+
+//   if ($result->num_rows > 0) {
+//     $admin = true;
+//     setcookie('loggedin', true, time() + 3600);
+//   } else {
+//     $admin = false;
+//   }
+// }
 
 if (!$conn) {
     die("Connection Failed".mysqli_connect_errors());
@@ -49,7 +54,7 @@ if (!$conn) {
 
 if(isset($_GET['delid'])){
   $delid = $_GET['delid'];
-  $sql = mysqli_query($conn, "DELETE FROM articles WHERE id = '$delid'");
+  $sql = mysqli_query($conn, "DELETE FROM private_teachers_docx__1_ WHERE teacher_id = '$delid'");
   echo "<script>alert('Data deleted successfully');</script>";
   echo "<script>window.location.href = 'index.php'</script>";
 }
@@ -97,25 +102,16 @@ if(isset($_GET['delid'])){
   <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 
-  <section class="mt-5">
+  <section class="mt-5 mx-5">
     <div class="container-lg d-flex flex-column justify-content-center">
         <h2>CHSO Admin Page</h2>
         <a href="../index.php">Return to Main</a>
-        <a href="../adminTools.html">Return to Tools</a>
+        <a href="../adminTools.php">Return to Tools</a>
     </div>
 
-    <header id="filter" class="filter container-fluid m-0 p-0"  style="background-color: white;">
-        <form action="editPTtable.php" method="POST" style="background-color: white;">
-            <div class="form-inline justify-content-center m-0" style="background-color: white;">
-                <input type="text" name="username" class="form-control p-1" placeholder="Username">
-                <input type="password" name="password" class="form-control p-1" placeholder="Password">
-                <input type="submit" value="Login" class="btn btn-danger">
-            </div>
-        </form>
-    </header> 
+    
   </section>
   <?php
-    if ($admin && $_COOKIE["loggedin"] == true) {
       $newquery = "SELECT * FROM private_teachers_docx__1_";
       $newresult = mysqli_query($conn, $newquery);
       $counter = 0;
@@ -126,8 +122,9 @@ if(isset($_GET['delid'])){
           <div class="col"><p>Location</p></div>
           <div class="col"><p>Instrument</p></div>
           <div class="col"><p>Phone</p></div>
-          <div class="col"><p>Email/Website</p></div>
-          <div class="col"><p>Other Notes</p></div>
+          <div class="col"><p>EmailWebsite</p></div>
+          <div class="col"><p>OtherNotes</p></div>
+          <div class="col"><p>Actions</p></div>
         </div>
       </div>
         <?php
@@ -142,38 +139,13 @@ if(isset($_GET['delid'])){
               <div class="col"><?php echo $row["Phone"];?></div>
               <div class="col"><?php echo $row["EmailWebsite"];?></div>
               <div class="col"><?php echo $row["OtherNotes"];?></div>
+              <p><a href="edit.php?eid=<?php echo ($row['teacher_id']);?>">Edit</a></p>
+              <p class="mx-1"><a href="?delid=<?php echo $row['teacher_id'];?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete?')"> Delete </a></p>
             </div>
           </div>
         <?php
         }
-      }
-    } else {
-      setcookie('loggedin', false, time() + 86400);
-      ?>
-        <div class="container-lg">
-            <p class="text-danger">incorrect credentials</p>
-        </div>
-    <?php
-    } 
-  ?>
-
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
+      }?>
 
 </body>
 </html>
