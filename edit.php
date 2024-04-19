@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $server = "localhost";
-$db = "publications";
+$db = "test";
 $username = 'root';
 $password = "";
 $conn = mysqli_connect($server, $username, $password, $db);
@@ -15,11 +15,28 @@ if (!$conn) {
 
 
 if($_SERVER["REQUEST_METHOD"]== "POST"){
-    $n_Title =$_POST["Title"];
-    $n_id =$_POST["id"];
-    $n_Authors=$_POST["Authors"];
-    $n_Publisher=$_POST["Publisher"];
-    $query ="UPDATE articles SET articles.Authors='$n_Authors', articles.Title='$n_Title', articles.Publisher='$n_Publisher' WHERE id='$n_id'";
+    $n_id =$_POST["teacher_id"];
+    $n_Name =$_POST["Name"];
+    $n_Phone=$_POST["Phone"];
+    $n_Email=$_POST["EmailWebsite"];
+    $n_loc=$_POST["Location"];
+    $n_inst=$_POST["Instrument"];
+    $n_notes=$_POST["Other Notes"];
+    $n_vn=$_POST["Violin"];
+    $n_v=$_POST["Viola"];
+    $n_c=$_POST["Cello"];
+    $n_b=$_POST["Bass"];
+    $query ="UPDATE private_teachers_docx__1_ p SET 
+        p.Name='$n_Name', 
+        p.Phone='$n_Phone',
+        p.EmailWebsite='$n_Email',
+        p.Location='$n_loc',
+        p.Instrument='$n_inst',
+        p.OtherNotes='$n_notes',
+        p.Violin='$n_vn',
+        p.Viola='$n_v',
+        p.Cello='$n_c',
+        p.Bass='$n_b' WHERE id='$n_id'";
     $exe = mysqli_query($conn, $query);
 }
 else{
@@ -28,8 +45,7 @@ else{
 if(isset($exe)){
     $msg= "The update was successfull"; 
     echo "<script>alert('$msg');</script>"; 
-    echo "<script>window.location.href = 'index.php'</script>";   
-   
+    echo "<script>window.location.href = 'editPTtable.php'</script>";   
 }
 
 ?>

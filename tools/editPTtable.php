@@ -128,7 +128,6 @@ if(isset($_GET['delid'])){
           <div class="col"><p>Phone</p></div>
           <div class="col"><p>Email/Website</p></div>
           <div class="col"><p>Other Notes</p></div>
-          <div class="col"><p>Actions</p></div>
         </div>
       </div>
         <?php
@@ -141,9 +140,8 @@ if(isset($_GET['delid'])){
               <div class="col"><?php echo $row["Location"];?></div>
               <div class="col"><?php echo $row["Instrument"];?></div>
               <div class="col"><?php echo $row["Phone"];?></div>
-              <div class="col"><?php echo $row["Email/Website"];?></div>
-              <div class="col"><?php echo $row["Other Notes"];?></div>
-              <div class="col"><a href="">button</a></div>
+              <div class="col"><?php echo $row["EmailWebsite"];?></div>
+              <div class="col"><?php echo $row["OtherNotes"];?></div>
             </div>
           </div>
         <?php
@@ -176,5 +174,6 @@ if(isset($_GET['delid'])){
     </div>
   </div>
 </div>
+
 </body>
 </html>

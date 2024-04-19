@@ -251,8 +251,8 @@ if(isset($_GET['delid'])){
                     <div class="accordion-body d-grid">
                       <div class="row container-lg d-flex justify-content-evenly">
                         <div class="col icon"><i class="bx bx-phone"></i><?php echo $row["Phone"];?></div>
-                        <div class="col icon"><i class="bx bx-mail-send"></i><?php echo $row["Email/Website"];?></div>
-                        <div class="col icon"><i class="bx bx-notepad"></i><?php echo $row["Other Notes"];?></div>
+                        <div class="col icon"><i class="bx bx-mail-send"></i><?php echo $row["EmailWebsite"];?></div>
+                        <div class="col icon"><i class="bx bx-notepad"></i><?php echo $row["OtherNotes"];?></div>
                       </div>
                     </div>
                   </div>
